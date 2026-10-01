@@ -1,0 +1,720 @@
+/* ---------- 공통 틀 ---------- */
+.shell {
+  display: flex;
+  flex-direction: column;
+  min-height: 100dvh;
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 8px 16px 0;
+}
+
+.top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  min-height: 52px;
+}
+
+.topActions {
+  display: flex;
+  gap: 2px;
+}
+
+.dots {
+  display: flex;
+  gap: 8px;
+  padding-left: 4px;
+  min-height: 12px;
+}
+
+.dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  border: 1.5px solid var(--accent);
+  background: transparent;
+}
+
+.dot[data-state='past'] {
+  background: var(--accent);
+  opacity: 0.45;
+}
+
+.dot[data-state='current'] {
+  background: var(--accent);
+}
+
+.stage {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+}
+
+.fade {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+  animation: crossFade 500ms ease-out;
+}
+
+.noFade {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+}
+
+.bottom {
+  position: sticky;
+  bottom: 0;
+  display: flex;
+  justify-content: center;
+  padding: 6px 0 calc(8px + env(safe-area-inset-bottom));
+  background: linear-gradient(to top, var(--bg) 70%, transparent);
+  z-index: 5;
+}
+
+.helpLink {
+  min-height: 44px;
+  padding: 0 12px;
+  border: 0;
+  background: transparent;
+  color: var(--text-quiet);
+  font: inherit;
+  font-size: 14px;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  cursor: pointer;
+}
+
+/* ---------- 잠시 쉬기 / 나가기 ---------- */
+.pause {
+  position: fixed;
+  inset: 0;
+  z-index: 60;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 24px;
+  background: rgba(24, 20, 16, 0.86);
+  color: #ece6dc;
+  animation: crossFade 400ms ease-out;
+}
+
+.pause button {
+  background: transparent;
+  color: #ece6dc;
+  border-color: rgba(236, 230, 220, 0.5);
+}
+
+.breath {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(236, 222, 200, 0.35), rgba(236, 222, 200, 0));
+  animation: breathe 8s ease-in-out infinite;
+}
+
+.pauseLine {
+  margin: 0;
+  font-size: 19px;
+}
+
+.exit h2 {
+  margin: 0 0 4px;
+  font-size: 19px;
+}
+
+.exit p {
+  color: var(--text-quiet);
+}
+
+.row {
+  display: flex;
+  gap: 8px;
+  justify-content: flex-end;
+}
+
+/* ---------- 단계 공통 ---------- */
+.panel {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  width: min(640px, 100%);
+  margin: 0 auto;
+  padding: 24px 0 32px;
+}
+
+.h1 {
+  margin: 0;
+  font-size: 23px;
+  line-height: 1.45;
+  font-weight: 600;
+}
+
+.sub {
+  margin: 0;
+  color: var(--text-quiet);
+  font-size: 15px;
+}
+
+.points {
+  margin: 8px 0;
+  padding-left: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  font-size: 17px;
+}
+
+.actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  padding-top: 12px;
+}
+
+.spacer {
+  flex: 1;
+}
+
+/* ---------- 마음 체크 ---------- */
+.moods {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: 8px;
+  margin-top: 12px;
+}
+
+.mood {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  min-height: 96px;
+  padding: 12px 4px;
+  border-radius: 16px;
+  border: 1.5px solid var(--line);
+  background: var(--surface);
+  color: var(--text-quiet);
+  font: inherit;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+.mood[aria-checked='true'] {
+  color: var(--text);
+  border-color: var(--accent);
+  box-shadow: 0 0 0 1.5px var(--accent);
+  background: var(--surface-2);
+}
+
+/* ---------- 스토리 ---------- */
+.storyWrap {
+  position: relative;
+}
+
+.skipBar {
+  position: sticky;
+  top: 0;
+  z-index: 4;
+  display: flex;
+  justify-content: flex-end;
+  background: linear-gradient(to bottom, var(--bg) 60%, transparent);
+}
+
+.story {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.scene {
+  min-height: 72dvh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  padding: 24px 0;
+  text-align: center;
+}
+
+.sceneArt {
+  width: min(360px, 100%);
+  min-height: 160px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.sceneLine {
+  margin: 0;
+  font-family: var(--font-serif), 'Nanum Myeongjo', serif;
+  font-size: 22px;
+  line-height: 1.6;
+}
+
+.scrollHint {
+  margin-top: 24px;
+  color: var(--text-quiet);
+  font-size: 14px;
+}
+
+.kinds {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 12px;
+  width: 100%;
+}
+
+.kinds li {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  font-size: 14px;
+}
+
+/* ---------- 조각 만들기 ---------- */
+.make {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  min-height: calc(100dvh - 120px);
+  padding-bottom: 8px;
+}
+
+.canvasSlot {
+  position: relative;
+  flex: 1;
+  min-height: 280px;
+}
+
+.makeTop {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  min-height: 48px;
+}
+
+/* ---------- 바라보기 ---------- */
+.view {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  min-height: calc(100dvh - 120px);
+  padding-bottom: 8px;
+}
+
+.viewCanvas {
+  position: relative;
+  flex: 1;
+  min-height: 300px;
+  opacity: 0;
+  transform: scale(0.97);
+  animation: reveal 3s ease-out forwards;
+}
+
+.viewCanvas[data-revealed='true'] {
+  animation: none;
+  opacity: 1;
+  transform: none;
+}
+
+.lightBand {
+  position: absolute;
+  inset: 0;
+  border-radius: 20px;
+  pointer-events: none;
+  background: linear-gradient(105deg, transparent 30%, rgba(255, 244, 222, 0.45) 50%, transparent 70%);
+  background-size: 250% 100%;
+  animation: sweep 3s ease-in-out forwards;
+}
+
+.revealHint {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 12px;
+  margin: 0;
+  text-align: center;
+  font-size: 13px;
+  color: var(--text-quiet);
+}
+
+.oneOf {
+  position: absolute;
+  left: 50%;
+  bottom: 16px;
+  transform: translateX(-50%);
+  margin: 0;
+  padding: 8px 16px;
+  border-radius: 20px;
+  background: var(--surface);
+  box-shadow: 0 4px 16px var(--shadow);
+  font-size: 15px;
+  white-space: nowrap;
+}
+
+.viewText {
+  text-align: center;
+  opacity: 0;
+  transition: opacity 800ms ease-out;
+}
+
+.viewText[data-revealed='true'] {
+  opacity: 1;
+}
+
+.viewLine {
+  margin: 0 0 4px;
+  font-family: var(--font-serif), 'Nanum Myeongjo', serif;
+  font-size: 20px;
+  line-height: 1.6;
+}
+
+.zoom {
+  display: flex;
+  gap: 6px;
+}
+
+.zoom button[aria-pressed='true'] {
+  border-color: var(--accent);
+  background: var(--surface-2);
+}
+
+.titleRow {
+  display: flex;
+  align-items: flex-end;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.titleLabel {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  font-size: 14px;
+  color: var(--text-quiet);
+  flex: 1;
+  min-width: 200px;
+  max-width: 360px;
+}
+
+.date {
+  font-size: 14px;
+  color: var(--text-quiet);
+  padding-bottom: 12px;
+}
+
+/* ---------- 돌봄 카드 ---------- */
+.cards {
+  list-style: none;
+  margin: 8px 0 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+  gap: 10px;
+}
+
+.card {
+  width: 100%;
+  height: 100%;
+  min-height: 116px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 4px;
+  padding: 14px 16px;
+  border-radius: 18px;
+  border: 1.5px solid var(--line);
+  background: var(--surface);
+  color: var(--text);
+  font: inherit;
+  text-align: left;
+  cursor: pointer;
+}
+
+.card[aria-pressed='true'] {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 1.5px var(--accent);
+  background: var(--surface-2);
+}
+
+.cardCat {
+  font-size: 13px;
+  color: var(--text-quiet);
+}
+
+.cardTitle {
+  font-size: 17px;
+  font-weight: 600;
+  line-height: 1.4;
+}
+
+.cardDetail {
+  font-size: 14px;
+  color: var(--text-quiet);
+}
+
+.proBox {
+  padding: 12px 16px;
+  border-radius: 16px;
+  background: var(--surface);
+  font-size: 15px;
+}
+
+.proBox p {
+  margin: 0 0 6px;
+}
+
+.proBox ul {
+  margin: 0;
+  padding-left: 18px;
+}
+
+/* ---------- 마무리 ---------- */
+.closeArt {
+  width: min(280px, 80%);
+  margin: 0 auto 8px;
+}
+
+.chosen {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  margin: 0;
+  padding: 12px 16px;
+  border-radius: 16px;
+  background: var(--surface);
+  font-size: 17px;
+}
+
+.customBox {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  font-size: 15px;
+}
+
+.snapWrap {
+  position: relative;
+  display: inline-block;
+  width: 100%;
+}
+
+.snap {
+  display: block;
+  width: 100%;
+  border-radius: 18px;
+  box-shadow: 0 4px 18px var(--shadow);
+}
+
+/* 모자이크 테두리 바깥, 오른쪽 아래 곁에 놓이는 작은 빛 */
+.careLight {
+  position: absolute;
+  right: -14px;
+  bottom: -14px;
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background: radial-gradient(circle, #fff6dc 0%, #f3d89a 45%, rgba(243, 216, 154, 0) 72%);
+  box-shadow: 0 0 18px 6px rgba(243, 216, 154, 0.55);
+  animation: glow 4s ease-in-out infinite;
+}
+
+.feedback {
+  margin-top: 16px;
+  padding: 12px 16px;
+  border-radius: 16px;
+  background: var(--surface);
+}
+
+.feedback summary {
+  cursor: pointer;
+  min-height: 32px;
+  color: var(--text-quiet);
+}
+
+.scale {
+  border: 0;
+  margin: 12px 0 0;
+  padding: 0;
+}
+
+.scale legend {
+  font-weight: 600;
+  margin-bottom: 6px;
+  padding: 0;
+}
+
+.scaleRow {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.scaleItem {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  min-height: 44px;
+  padding: 0 10px;
+  border-radius: 22px;
+  border: 1.5px solid var(--line);
+  font-size: 14px;
+  cursor: pointer;
+}
+
+.scaleItem input {
+  accent-color: var(--accent);
+}
+
+@keyframes glow {
+  0%,
+  100% {
+    opacity: 0.75;
+  }
+  50% {
+    opacity: 1;
+  }
+}
+
+/* ---------- 위기 안내 ---------- */
+.crisisTitle {
+  margin: 8px 0 0;
+  font-size: 21px;
+}
+
+.crisisBody {
+  margin: 4px 0 12px;
+  color: var(--text-quiet);
+}
+
+.crisisList {
+  list-style: none;
+  margin: 0 0 12px;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.crisisLink {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  grid-template-rows: auto auto;
+  column-gap: 12px;
+  min-height: 56px;
+  padding: 10px 16px;
+  border-radius: 14px;
+  background: var(--surface);
+  text-decoration: none;
+  color: var(--text);
+}
+
+.crisisName {
+  font-weight: 600;
+}
+
+.crisisNumber {
+  grid-row: span 2;
+  align-self: center;
+  font-size: 20px;
+  font-weight: 600;
+  color: var(--accent);
+}
+
+.crisisNote {
+  font-size: 13px;
+  color: var(--text-quiet);
+}
+
+.crisisNoteText {
+  margin: 0 0 12px;
+  font-size: 13px;
+  color: var(--text-quiet);
+}
+
+@media (max-width: 480px) {
+  .moods {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+  .kinds {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  .h1 {
+    font-size: 21px;
+  }
+}
+
+@keyframes crossFade {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes reveal {
+  from {
+    opacity: 0;
+    transform: scale(0.97);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@keyframes sweep {
+  from {
+    background-position: 120% 0;
+  }
+  to {
+    background-position: -20% 0;
+  }
+}
+
+@keyframes breathe {
+  0%,
+  100% {
+    transform: scale(0.8);
+    opacity: 0.6;
+  }
+  50% {
+    transform: scale(1.25);
+    opacity: 1;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .fade,
+  .viewCanvas,
+  .lightBand,
+  .breath,
+  .careLight,
+  .pause {
+    animation: none;
+  }
+  .viewCanvas {
+    opacity: 1;
+    transform: none;
+  }
+  .viewText {
+    transition: none;
+  }
+}

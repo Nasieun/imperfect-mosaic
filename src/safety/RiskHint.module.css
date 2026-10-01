@@ -1,0 +1,22 @@
+.hint {
+  margin: 4px 0 0;
+  padding: 10px 12px;
+  border-radius: 12px;
+  background: var(--surface-2);
+  color: var(--text);
+  font-size: 14px;
+  line-height: 1.55;
+}
+
+.link {
+  min-height: 32px;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: var(--accent);
+  font: inherit;
+  font-weight: 600;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  cursor: pointer;
+}

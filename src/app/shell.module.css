@@ -1,0 +1,141 @@
+.app {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  height: 100dvh;
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 12px 16px calc(12px + env(safe-area-inset-bottom));
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.headerTitle {
+  margin: 0;
+  font-size: 19px;
+  font-weight: 600;
+}
+
+.headerSub {
+  margin: 0;
+  font-size: 13px;
+  color: var(--text-quiet);
+}
+
+.headerActions {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.popWrap {
+  position: relative;
+}
+
+.popover {
+  position: absolute;
+  right: 0;
+  top: calc(100% + 6px);
+  z-index: 30;
+  padding: 10px;
+  border-radius: 16px;
+  background: var(--surface);
+  box-shadow: 0 6px 24px var(--shadow);
+}
+
+.center {
+  min-height: 100dvh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  padding: 24px 16px;
+  text-align: center;
+}
+
+.title {
+  margin: 0;
+  font-size: 28px;
+  font-weight: 600;
+  font-family: var(--font-serif), 'Nanum Myeongjo', serif;
+}
+
+.lead {
+  margin: 0;
+  font-size: 18px;
+  color: var(--text-quiet);
+}
+
+.landingArt {
+  width: min(320px, 80vw);
+}
+
+.landingSub {
+  margin: 0;
+  max-width: 420px;
+  font-size: 15px;
+  color: var(--text-quiet);
+}
+
+.choices {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+}
+
+.choiceRow {
+  display: flex;
+  gap: 10px;
+}
+
+.choiceRow button {
+  min-width: 132px;
+  min-height: 48px;
+}
+
+.agedToggle {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 44px;
+  font-size: 14px;
+  color: var(--text-quiet);
+  cursor: pointer;
+}
+
+.agedToggle input {
+  width: 20px;
+  height: 20px;
+  accent-color: var(--accent);
+}
+
+.textLink {
+  min-height: 44px;
+  display: inline-flex;
+  align-items: center;
+  font-size: 15px;
+  color: var(--text-quiet);
+  text-underline-offset: 3px;
+}
+
+.cta {
+  border: 0;
+  font: inherit;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  min-height: 48px;
+  padding: 0 24px;
+  border-radius: 24px;
+  background: var(--accent);
+  color: var(--accent-contrast);
+  font-weight: 600;
+  text-decoration: none;
+}

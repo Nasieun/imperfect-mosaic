@@ -1,0 +1,83 @@
+/* 디자인 토큰: 늦은 오후 작업실의 낮은 빛 */
+:root {
+  --bg: #f6f1e8;
+  --surface: #fffcf6;
+  --surface-2: #efe7da;
+  --text: #3b3631;
+  --text-quiet: #6b6259;
+  --line: #d9cebe;
+  --accent: #7d6249;
+  --accent-contrast: #fffcf6;
+  --grout: #e8dfd0;
+  --focus: #4f74ad;
+  --shadow: rgba(60, 45, 30, 0.16);
+  --scrim: rgba(40, 32, 24, 0.36);
+  color-scheme: light;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #1e1c1a;
+    --surface: #282522;
+    --surface-2: #34302b;
+    --text: #ece6dc;
+    --text-quiet: #aaa196;
+    --line: #47403a;
+    --accent: #cdb497;
+    --accent-contrast: #1e1c1a;
+    --grout: #2b2825;
+    --focus: #8fb0e0;
+    --shadow: rgba(0, 0, 0, 0.4);
+    --scrim: rgba(0, 0, 0, 0.55);
+    color-scheme: dark;
+  }
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+}
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: 'Pretendard Variable', Pretendard, -apple-system, BlinkMacSystemFont, 'Apple SD Gothic Neo', 'Noto Sans KR',
+    sans-serif;
+  font-size: 16px;
+  line-height: 1.6;
+  word-break: keep-all;
+  -webkit-font-smoothing: antialiased;
+}
+
+button {
+  font-family: inherit;
+}
+
+:focus-visible {
+  outline: 3px solid var(--focus);
+  outline-offset: 2px;
+}
+
+a {
+  color: inherit;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 1ms !important;
+    transition-duration: 1ms !important;
+  }
+}
+
+/* 다른 단계 주소로 바로 들어왔을 때, 단계가 맞춰질 때까지 정적 HTML의 첫 화면을 감춘다 */
+html[data-deeplink='1'] [data-journey-content] {
+  visibility: hidden;
+}

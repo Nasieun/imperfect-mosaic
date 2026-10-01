@@ -1,0 +1,106 @@
+.editor {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  flex: 1;
+  min-height: 0;
+}
+
+.canvasArea {
+  position: relative;
+  flex: 1;
+  min-height: 280px;
+}
+
+.empty {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  margin: 0;
+  padding: 24px;
+  text-align: center;
+  color: var(--text-quiet);
+  font-size: 16px;
+  pointer-events: none;
+}
+
+.intro {
+  position: absolute;
+  left: 12px;
+  right: 12px;
+  top: 12px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 8px 8px 16px;
+  border-radius: 16px;
+  background: var(--surface);
+  box-shadow: 0 4px 16px var(--shadow);
+  font-size: 15px;
+}
+
+.intro span {
+  flex: 1;
+}
+
+.menuSlot {
+  min-height: 56px;
+  display: flex;
+  justify-content: center;
+}
+
+.bottomBar {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px;
+  min-width: 0;
+}
+
+.frame {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 14px;
+  color: var(--text-quiet);
+}
+
+.frame select {
+  min-height: 44px;
+  padding: 0 8px;
+}
+
+@media (max-width: 480px) {
+  .frame span {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+  }
+}
+
+.spacer {
+  flex: 1;
+}
+
+/* 되돌리기·다시하기는 줄이 바뀌어도 오른쪽에 함께 둔다 */
+.history {
+  display: flex;
+  gap: 8px;
+  margin-left: auto;
+}
+
+.keys {
+  margin: 0;
+  font-size: 13px;
+  color: var(--text-quiet);
+  text-align: center;
+}
+
+@media (hover: none) {
+  .keys {
+    display: none;
+  }
+}

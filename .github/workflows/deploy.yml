@@ -1,0 +1,81 @@
+name: 테스트 · GitHub Pages 배포
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  test:
+    name: 테스트
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - name: 타입 검사
+        run: npm run typecheck
+      - name: 린트
+        run: npm run lint
+      - name: 단위 테스트
+        run: npm test
+      - name: Playwright 브라우저 설치
+        run: npx playwright install --with-deps chromium
+      - name: 정적 빌드 (루트 경로, 테스트용)
+        run: npm run build:pages
+        env:
+          BASE_PATH: ''
+      - name: E2E 테스트 (배포될 정적 빌드 그대로)
+        run: npm run test:e2e
+        env:
+          PW_STATIC: '1'
+      - name: 실패한 테스트 기록 올리기
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: playwright-results
+          path: test-results
+          retention-days: 7
+
+  deploy:
+    name: GitHub Pages 배포
+    needs: test
+    if: github.event_name != 'pull_request' && github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - name: Pages 설정 읽기
+        id: pages
+        uses: actions/configure-pages@v5
+      - name: 정적 빌드 (저장소 하위 경로)
+        run: npm run build:pages
+        env:
+          # 프로젝트 페이지면 "/저장소이름", 사용자 페이지·커스텀 도메인이면 ""
+          BASE_PATH: ${{ steps.pages.outputs.base_path }}
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: out
+      - name: 배포
+        id: deployment
+        uses: actions/deploy-pages@v4

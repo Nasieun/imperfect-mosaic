@@ -1,0 +1,45 @@
+{
+  "ci": {
+    "collect": {
+      "startServerCommand": "npx next start -p 3300",
+      "startServerReadyPattern": "Ready",
+      "url": [
+        "http://localhost:3300/",
+        "http://localhost:3300/journey?step=intro",
+        "http://localhost:3300/journey?step=make"
+      ],
+      "numberOfRuns": 1,
+      "settings": {
+        "chromeFlags": "--headless=new --no-sandbox",
+        "formFactor": "mobile",
+        "throttlingMethod": "devtools"
+      }
+    },
+    "assert": {
+      "assertions": {
+        "categories:performance": [
+          "error",
+          {
+            "minScore": 0.85
+          }
+        ],
+        "categories:accessibility": [
+          "error",
+          {
+            "minScore": 0.95
+          }
+        ],
+        "largest-contentful-paint": [
+          "error",
+          {
+            "maxNumericValue": 2500
+          }
+        ]
+      }
+    },
+    "upload": {
+      "target": "filesystem",
+      "outputDir": "./.lighthouseci/reports"
+    }
+  }
+}

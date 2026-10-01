@@ -1,0 +1,28 @@
+.wrap {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 8px;
+  max-width: 100%;
+}
+
+.menu {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 6px;
+  padding: 6px;
+  border-radius: 28px;
+  background: var(--surface-2);
+  box-shadow: 0 4px 16px var(--shadow);
+  scrollbar-width: none;
+  max-width: 100%;
+}
+
+.menu::-webkit-scrollbar {
+  display: none;
+}
+
+.menu button {
+  flex: 0 0 auto;
+}

@@ -1,0 +1,43 @@
+.wrap {
+  /* 부모(position: relative)의 크기를 그대로 채운다. 부모 높이가 min-height로만 정해져도 동작한다. */
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  border-radius: 20px;
+  outline: none;
+  touch-action: none;
+  /* 줄눈(grout) 질감: 빈 공간이 허전하지 않게 은은한 결을 깐다 */
+  background-color: var(--grout);
+  box-shadow: inset 0 1px 6px var(--shadow);
+}
+
+.wrap:focus-visible {
+  box-shadow: inset 0 1px 6px var(--shadow), 0 0 0 3px var(--focus);
+}
+
+.note {
+  position: absolute;
+  transform: translate(-50%, calc(-100% - 28px));
+  max-width: 240px;
+  padding: 8px 12px;
+  border-radius: 10px;
+  background: var(--surface);
+  color: var(--text);
+  font-size: 15px;
+  line-height: 1.5;
+  box-shadow: 0 4px 16px var(--shadow);
+  pointer-events: none;
+  white-space: pre-line;
+}
+
+.placeholderText {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  margin: 0;
+  padding: 24px;
+  text-align: center;
+  color: var(--text-quiet);
+  font-size: 16px;
+}
